@@ -1,1 +1,0 @@
-web: gunicorn receipt_analyze.wsgi --log-file -
