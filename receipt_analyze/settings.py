@@ -36,15 +36,6 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-try:
-    from .local_settings import *
-except ImportError:
-    pass
-
-if not DEBUG:
-    import django_heroku
-    django_heroku.settings(locals())
-
 # 追記
 
 ALLOWED_HOSTS = ['*']
@@ -138,3 +129,15 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]  # './static'
 
 # Auth
 LOGIN_REDIRECT_URL = '/receipt'
+
+# 追記
+try:
+    from .local_settings import *
+except ImportError:
+    pass
+
+if not DEBUG:
+    import django_heroku
+
+    django_heroku.settings(locals())
+# 追記
