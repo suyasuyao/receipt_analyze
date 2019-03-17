@@ -20,22 +20,22 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-
+SECRET_KEY = 'q0&igj$$=h!)8nt9+f)nynb%5eb10$hlqx2$b1zm5&m23_=rxm'
 
 # 追記
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
-#STATICFILES_DIRS = (
-#    os.path.join(PROJECT_ROOT, 'static'),
-#)
+STATICFILES_DIRS = (
+    os.path.join(PROJECT_ROOT, 'static'),
+)
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = 'staticfiles'
+#STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]  # './static'
 
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]  # './static'
+STATIC_ROOT = 'staticfiles'
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
@@ -130,6 +130,8 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+
 
 # Auth
 LOGIN_REDIRECT_URL = '/receipt'
