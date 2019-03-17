@@ -42,8 +42,7 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-#DEBUG = False
-DEBUG = True
+DEBUG = False
 
 # 追記
 
@@ -143,7 +142,7 @@ try:
 except ImportError:
     pass
 
-#if not DEBUG:
+if not DEBUG:
     import django_heroku
 
     django_heroku.settings(locals())
