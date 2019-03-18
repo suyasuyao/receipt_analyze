@@ -13,6 +13,7 @@ import requests
 import json
 import base64
 import cv2
+import os
 
 """
 Django Auth
@@ -49,6 +50,17 @@ class UpdateView2(LoginRequiredMixin, generic.edit.UpdateView):  # The LoginRequ
         if obj.author != self.request.user:
             raise PermissionDenied('You do not have permission to edit.')
         return super(UpdateView2, self).dispatch(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        # This method is called when valid form data has been POSTed.
+        # It should return an HttpResponse.
+        # https://docs.djangoproject.com/en/2.0/topics/class-based-views/generic-editing/#models-and-request-user
+        analyze_imgage = form.cleaned_data['image']
+        analyze_json = text_detection(analyze_imgage)
+        description = analyze_json['responses'][0]['textAnnotations'][0]['description']
+        form.instance.text = description
+
+        return super(UpdateView2, self).form_valid(form)
 
 
 class DetailView2(generic.DetailView):
@@ -93,22 +105,9 @@ class DeleteView2(LoginRequiredMixin, generic.edit.DeleteView):  # The LoginRequ
         return super(DeleteView2, self).dispatch(request, *args, **kwargs)
 
 
-    def form_valid(self, form):
-        # This method is called when valid form data has been POSTed.
-        # It should return an HttpResponse.
-        # https://docs.djangoproject.com/en/2.0/topics/class-based-views/generic-editing/#models-and-request-user
-        analyze_imgage = form.cleaned_data['image']
-        analyze_json = text_detection(analyze_imgage)
-        description = analyze_json['responses'][0]['textAnnotations'][0]['description']
-        form.instance.text = description
-
-        return super(C2, self).form_valid(form)
-
-
 def text_detection(image_path):
-    # 注意
-    API_KEY = "AIzaSyAj9Gwi_5JkYkgyZp-NiLPRvW57BK9gq7Q"
-    api_url = 'https://vision.googleapis.com/v1/images:annotate?key={}'.format(API_KEY)
+    CLOUD_VISION_API_KEY = os.environ["CLOUD_VISION_API_KEY"]
+    api_url = 'https://vision.googleapis.com/v1/images:annotate?key={}'.format(CLOUD_VISION_API_KEY)
 
     immage_array = np.asarray(Image.open(image_path))
 
