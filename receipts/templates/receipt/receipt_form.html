@@ -10,10 +10,20 @@
         <form action="" method="post" enctype="multipart/form-data">
             {% csrf_token %}
 
-            {{ form.as_p }}
+            <p>
+                <label for="id_title">Title:</label>
+                <input type="text" name="title" value={{ object.title }} maxlength="255" required id="id_title">
+            </p>
+            <p>
+                <label for="id_text">Text:</label>
+                <textarea name="text" cols="40" rows="10" id="id_text">
+                    {{ object.text }}
+                </textarea>
+            </p>
             <p>
                 <img src="{{ object.image.url }}" width="100" height="100"/>
             </p>
+
             <button type="submit" class="submit">{{ object|yesno:'Update,Save' }}</button>
         </form>
     </section>

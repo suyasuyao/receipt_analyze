@@ -38,7 +38,6 @@ class IndexView2(generic.ListView):
 
 class UpdateView2(LoginRequiredMixin, generic.edit.UpdateView):  # The LoginRequired mixin
     model = Receipt
-    fields = ['title', 'text', 'image']  # フォームに表示するカラム
 
     success_url = reverse_lazy('receipts:index2')
 
@@ -55,6 +54,7 @@ class UpdateView2(LoginRequiredMixin, generic.edit.UpdateView):  # The LoginRequ
         # This method is called when valid form data has been POSTed.
         # It should return an HttpResponse.
         # https://docs.djangoproject.com/en/2.0/topics/class-based-views/generic-editing/#models-and-request-user
+
         analyze_imgage = form.cleaned_data['image']
         analyze_json = text_detection(analyze_imgage)
         description = analyze_json['responses'][0]['textAnnotations'][0]['description']
@@ -70,7 +70,7 @@ class DetailView2(generic.DetailView):
 
 class CreateView2(LoginRequiredMixin, generic.edit.CreateView):  # The LoginRequired mixin
     model = Receipt
-    fields = ['title', 'text', 'image']  # フォームに表示するカラム
+
     success_url = reverse_lazy('receipts:index2')
 
     template_name = 'receipt/receipt_form.html'

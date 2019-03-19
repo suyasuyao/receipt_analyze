@@ -6,7 +6,7 @@
     <h1>{{ object.title }}</h1>
     <section class="receipt-text">
         <p>text:</p>
-        <textarea style="width:100%;height: 250px;">{{ object.text|linebreaksbr }}</textarea>
+        <textarea readonly style="width:100%;height: 250px;">{{ object.text|linebreaksbr }}</textarea>
         <p>{{ object.image }}</p>
         <td>
             <img src="{{ object.image.url }}" width="100" height="100"/>
