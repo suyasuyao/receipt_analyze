@@ -1,4 +1,5 @@
 # Create your models here.
+from django.core.validators import FileExtensionValidator
 from django.db import models
 from django.urls import reverse
 
@@ -10,7 +11,15 @@ class Receipt(models.Model):
     text = models.TextField()
 
     # 保存された合計額
-    sum_total = models.IntegerField
+    sum_total = models.IntegerField(default=0)
+
+    # 画像保存
+    image = models.ImageField(upload_to='images/', blank=True)
+    # attach = models.FileField(
+    #     upload_to='uploads/%Y/%m/%d/',
+    #     verbose_name='添付ファイル',
+    #     validators=[FileExtensionValidator(['pdf', ])],
+    # )
 
     # ユーザー
     author = models.ForeignKey(

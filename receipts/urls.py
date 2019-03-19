@@ -1,6 +1,10 @@
-from django.urls import path
+from django.urls import path, include
 
 from . import views
+
+from django.conf import settings
+from django.conf.urls.static import static
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 # set the application namespace
 # https://docs.djangoproject.com/en/2.0/intro/tutorial03/
@@ -26,4 +30,9 @@ urlpatterns = [
     # ex: /post/help/
     # path('post/help/', views.help, name='help'),
 
+    # path('images/', include('receipts.urls'))
+
 ]
+
+urlpatterns += staticfiles_urlpatterns()
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
